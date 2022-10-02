@@ -7,57 +7,58 @@
 			// Uma lista de exemplo que podemos usar sem ter que informar usuários sempre.
 			//var lista_hospedes = ["Gabriel Augusto", "Roberto Gómez Bolaños", "María Antonieta de las Nieves", "Hector Bonilha", "Carlos Villagrán", "Ramón Valdés"]; 
 			
-			var lista_hospedes = [];
+			var cadastros = [];
+			console.log(cadastros);
+			var acum_cadastro = 0;
 			
-			function sistema_cadastrar_hospedes() {
+			function inicio_cadastro(){
+			var escolha_cadastro = parseInt(prompt('Selecione uma opção 1.) cadastrar 2.) pesquisar 3.) Sair'));
 
-				var escolha_hospedes = parseInt(prompt('Cadastro de Hóspedes\n\n Selecione uma opção: \n1. Cadastrar \n2. Pesquisar \n3. Sair'));
+			switch (escolha_cadastro) {
+				case 1:
+					cadastrar();
+					break;
+				
+				case 2:
+					pesquisar();
+					break
+				
+				case 3:
+					inicio();
 
-				if (escolha_hospedes === 1) {
-					cadastrar_hospedes();
-				} else if (escolha_hospedes === 2) {
-					pesquisar_hospedes();
-				} else if (escolha_hospedes === 3) {
-					//inicio();
-				} else {
-					erro_pesquisar_hospedes();
-				}
+				default:
+					break;
 			}
-			
-			function cadastrar_hospedes() {
-				// lenght é uma propriedade que retorna a quantidade de itens dentro do array. 
-				if (lista_hospedes.length >= 15){
-					alert("Numero máximo de hóspedes cadastrados.");
-				} else {	
-					var nome_hospede = prompt('Por favor, informe o nome da(o) hóspede:');
-					
-					// O método push() permite adicionar um item ao Array/Vetor. Importante dizer que ele adiciona o elemento ao final do Array/Vetor. 
-					lista_hospedes.push(nome_hospede);
-					console.log(lista_hospedes); // O console é usado apenas para exibir ao desenvolvedor todo mundo que já está cadastrado.
-					alert("Sucesso! Hóspede " + nome_hospede + " foi cadastrada(o) com sucesso!\n");
-				}
-				
-				sistema_cadastrar_hospedes();
+		}
+
+		function cadastrar(){
+			if (acum_cadastro >= 3){
+				alert("Máximo de cadastros atingido")
+				inicio_cadastro();
 			}
-			
-			function pesquisar_hospedes() {
-				var nome_hospede = prompt('Por favor, informe o nome da(o) hóspede para pesquisa:');
-				// O método includes() procura por um elemento dentro do Array e retorna verdadeiro ou falso. Caso queira comparar números, o mais indicado é o método find();
-				if (lista_hospedes.includes(nome_hospede)){
-					alert(nome_hospede + ' encontrada(o).')
-				} else {
-					alert(nome_hospede + ' não foi encontrada(o).')
-				}
-				
-				sistema_cadastrar_hospedes() 
+			else{
+			acum_cadastro += 1;
+			var register = prompt("Qual o nome do hospede?");
+			cadastros = register.split(", ")
+			alert(`O hóspede ${cadastros} foi cadastrado com suscesso!`)
+			inicio_cadastro();
 			}
-			
-			function erro_pesquisar_hospedes(){
-				alert('Por favor, informe um número entre 1 e 3');
-				sistema_cadastrar_hospedes();
+			console.log(acum_cadastro);
+		}
+
+		function pesquisar(){
+			var search = prompt("digite o nome do hospede")
+			var validação = cadastros.includes(search);
+			if(validação){
+				alert("usuario encontrado!")
 			}
-			
-			sistema_cadastrar_hospedes();
+			else{
+				alert("usuario nao encontrado")
+			}
+			inicio_cadastro();
+		}
+
+		inicio_cadastro();
 		
 		</script>
 	

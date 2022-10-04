@@ -9,6 +9,7 @@
 		var nome_usuario = prompt("Qual o seu nome?")
 		var senha_usuario = parseInt(prompt("Digite a senha: "))
 		var cadastros = [];
+		var reseva_events = 10.50 
 		console.log(cadastros);
 		var acum_cadastro = 0;
 		while(senha != senha_usuario){
@@ -18,7 +19,7 @@
 		alert(`Seja bem vindo ${nome_usuario} ao hotel ${nome_hotel} é um imenso prazer telo aqui!`)
 		function inicio() {
 
-			var escolha = parseInt(prompt('Selecione uma opção 1.) Reserva de Quartos 2.) Cadastro de Hóspedes 3.) Abastecimento de Carros 4.) Sair 5.)Cadastrar / pesquisar '));
+			var escolha = parseInt(prompt('Selecione uma opção 1.) Reserva de Quartos 2.) Cadastro de Hóspedes 3.) Abastecimento de Carros 4.) Sair 5.)Cadastrar / pesquisar 6.)Eventos '));
 
 
 			switch (escolha) {
@@ -40,6 +41,10 @@
 
 				case 5:
 					inicio_cadastro();
+					break
+
+				case 6:
+					evento();
 					break
 
 				default:
@@ -166,7 +171,31 @@
 			inicio_cadastro();
 		}
 
-
+		function evento(){
+			alert(`HOTEL ${nome_hotel} - EVENTOS`);
+			var horas = parseFloat(prompt("qual a duração do evento em horas?"));
+			if(isNaN(horas) || horas == ""){	
+			while(isNaN(horas) || horas == " "){
+			alert("operação invalida!!");	
+			var horas = parseFloat(prompt("qual a duração do evento em horas?"));			
+				}
+			}
+			var garsom = parseFloat(prompt("quantos garçons serão necessarios?"));
+			if(isNaN(garsom) || garsom == ""){	
+			while(isNaN(garsom) || garsom == " "){
+			alert("operação invalida!!");	
+			var garsom = parseFloat(prompt("quantos garçons serão necessarios?"));			
+				}
+			}		
+			var total = (horas * reseva_events) * garsom;
+			let confirmar = confirm(`O total da reseva fica em ${total} REAIS quer confirmar a reserva?`)
+			if(confirmar == true){
+				alert("reserva efetuada!!")
+			}
+			else{
+				alert("reserva cancelada!!")
+			}
+		}
 
 		function abastecer_carros() {
 			alert('HOTEL {NOME DO HOTEL} - ABASTECER');
@@ -191,6 +220,7 @@
 		
 		
 		inicio();
+
 	</script>
 
 <!--[if gte mso 9]><xml>

@@ -3,6 +3,7 @@
 <head>
 
 	<script>
+		//variaveis globais
 		var senha = 2678;
 		var nome_hotel = prompt("digite o nome do hotel");
 		alert ("O nome do hotel é " + nome_hotel);
@@ -11,15 +12,18 @@
 		var cadastros = [];
 		var reseva_events = 10.50 
 		console.log(cadastros);
-		var acum_cadastro = 0;
+		var acum_cadastro = 0
 		while(senha != senha_usuario){
 			alert("Senha incoreta!! digite novamente.")
 			var senha_usuario = parseInt(prompt("Digite a senha: "))
 		}
 		alert(`Seja bem vindo ${nome_usuario} ao hotel ${nome_hotel} é um imenso prazer telo aqui!`)
+		var cafepessoa = 0.2;
+		var aguapessoa = 0.5;
+		var coxinhapessoa = 7;
 		function inicio() {
 
-			var escolha = parseInt(prompt('Selecione uma opção 1.) Reserva de Quartos 2.) Cadastro de Hóspedes 3.) Abastecimento de Carros 4.) Sair 5.)Cadastrar / pesquisar 6.)Eventos '));
+			var escolha = parseInt(prompt('Selecione uma opção 1.) Reserva de Quartos 2.) Cadastro de Hóspedes 3.) Abastecimento de Carros 4.) Sair 5.) Pesquisar / cadastrar 6.) gerenciamento de evento 7.) Serviço de ar'));
 
 
 			switch (escolha) {
@@ -41,10 +45,13 @@
 
 				case 5:
 					inicio_cadastro();
-					break
 
 				case 6:
-					evento();
+					escolha_evento();
+					break
+
+				case 7:
+					ar();
 					break
 
 				default:
@@ -140,6 +147,8 @@
 					inicio();
 
 				default:
+
+					erro3();
 					break;
 			}
 		}
@@ -171,7 +180,37 @@
 			inicio_cadastro();
 		}
 
-		function evento(){
+		function escolha_evento(){
+			alert("Gerenciamento de eventos")
+			var escolhas_event = parseInt(prompt("Selecione uma opção 1.) preço do evento 2.) Buffet 3.) Auditorio 4.) Vereficar horario 5.) inicio"));
+			switch (escolhas_event) {
+				case 1:
+					evento();
+					break;
+
+				case 2:
+					buffet();
+					break;
+
+				case 3:
+					auditorios();
+					break;
+
+				case 4:
+					horarios();
+					break;
+
+				case 5:
+					inicio();
+					break
+
+				default:
+					erro2();
+					break
+			}
+		}
+
+		function evento(){	
 			alert(`HOTEL ${nome_hotel} - EVENTOS`);
 			var horas = parseFloat(prompt("qual a duração do evento em horas?"));
 			if(isNaN(horas) || horas == ""){	
@@ -191,20 +230,164 @@
 			let confirmar = confirm(`O total da reseva fica em ${total} REAIS quer confirmar a reserva?`)
 			if(confirmar == true){
 				alert("reserva efetuada!!")
+				escolha_evento();
 			}
 			else{
 				alert("reserva cancelada!!")
+				escolha_evento();
+			}
+		}
+
+		function buffet(){
+			alert(`HOTEL ${nome_hotel} - buffet`);
+			var pessoas = prompt("Qual a quantidade de Pessoas");
+			if(pessoas > 350){
+				alert("quantidade de convidados superior à capacidade máxima");
+			}
+			else{
+				var cafe = parseFloat(pessoas * cafepessoa);
+				var agua = parseFloat(pessoas * aguapessoa);
+				var coxinha = parseFloat(pessoas * coxinhapessoa);
+				var valorcafe = parseFloat(cafe * 0.80);
+				var valoragua = parseFloat(agua * 0.40);
+				var valorcoxi = parseFloat(coxinha * 0.34)
+				var total = valorcafe + valoragua + valorcoxi;
+				alert(`O evento precisará de ${cafe} litros de café, ${agua} litros de água, ${coxinha} salgados. O custo total do evento será de R$ ${total}`);
+				confirm("Gostaria de efetuar a reserva?")
+				if(confirm){
+					alert(`${nome_usuario}, reserva efetuada com sucesso.`)
+					escolha_evento();
+				}
+				else{
+					alert("Reserva cancelada!")
+					escolha_evento();
+				}
+			}
+		}
+
+		function auditorios(){
+			var peaples = prompt("qual o numero de convidados?")
+			if(peaples <= 0 || peaples > 350){
+				alert("Número de convidados inválido");
+				auditorios();
+			}
+			else if (peaples <= 150){
+				alert("use o auditorio laranja!");
+			}
+			else if (peaples > 150 && peaples <=220){
+				var cadeiras = peaples - 150;
+				alert(`Use o auditório Laranja (inclua mais ${cadeiras} cadeiras)`);
+			}
+			
+			else{
+				alert("use o auditorio colorado!!");
+			}
+		
+			confirm("Gostaria de efetuar a reserva?");
+			if (confirm) {
+				alert(`${nome_usuario}, reserva efetuada com sucesso.`)
+				escolha_evento();
+			}
+			else{
+				alert("reserva não efetuada!!")
+				escolha_evento();
+			}
+		}
+
+		function horarios(){
+			alert(`HOTEL ${nome_hotel} - HORARIO`);
+			var semana = ["segunda", "terça", "quarta", "quinta", "sexta"];
+			var final = ["sabado", "domingo"];
+			var dia = prompt("Qual o dia do seu evento?");
+			var validação = semana.includes(dia);
+			var validação2 = final.includes(dia);
+			if(validação){
+				var hora = prompt("qual a hora do evento?")
+				if(hora < 23 && hora > 7){
+					var empresa = prompt("Qual o nome da empresa?")
+					alert(`Restaurante reservado para ${empresa}. ${dia} às 13hs.`)
+				}
+				else if(isNaN(hora) || hora == " " || hora < 0){
+					alert("operação invalida!!")
+					horarios();
+				}
+				else{
+					alert("Restaurante indisponível")
+				}
+				escolha_evento();
+			}
+			else if(validação2){
+				var hora = prompt("qual a hora do evento?")
+				if(hora < 15 && hora > 7){
+					var empresa = prompt("Qual o nome da empresa?")
+					alert(`Restaurante reservado para ${empresa}. ${dia} às 13hs.`)
+				}
+				else if(isNaN(hora) || hora == " " || hora < 0){
+					alert("operação invalida!!")
+					horarios();
+				}
+				else{
+					alert("Restaurante indisponível")
+				}
+				escolha_evento();
+			}
+			else{
+				alert("operação invalida :(")
+				horarios();
+
 			}
 		}
 
 		function abastecer_carros() {
-			alert('HOTEL {NOME DO HOTEL} - ABASTECER');
+			alert(`HOTEL ${nome_hotel} - ABASTECER`);
+			var alcol1 = parseFloat(prompt("Qual o valor do álcool no posto Wayne Oil?"));
+			var gasolina1 = parseFloat(prompt("Qual o valor da gasolina no posto Wayne Oil?"));
+			if (gasolina1 > alcol1) {	
+				var desconto1 = ((gasolina1 - alcol1) /gasolina1) *100
+				alert(`o desconte é ${desconto1} %`);
+			} else {
+				var desconto1 = 0;
+			}
+			var alcol2 = parseFloat(prompt("Qual o valor do álcool no postoStark Perol?"));
+			var gasolina2 = parseFloat(prompt("Qual o valor do gasolina no posto Stark Perol?"));
+			if (gasolina2 > alcol2) {	
+				var desconto2 = ((gasolina2 - alcol2) /gasolina2) *100
+				alert(`o desconte é ${desconto2} %`);
+			} else {
+				var desconto2 = 0;
+			}
+			if(gasolina1 < gasolina2){
+				if(desconto1 > 30){
+					alert("compesa mais pegar o alcool na wayne oil")
+				}
+				else{
+					alert(`${nome_usuario}, é mais barato abastecer com gasolina no posto Wayne Oil`)
+				}
+			}
+			else{
+				if(desconto2 > 30){
+					alert("compesa mais pegar o alcool na Stark Pertrol")
+				}
+				else{
+					alert(`${nome_usuario}, é mais barato abastecer com gasolina no posto Stark Petrol`)
+				}
+			}
 			inicio();
-		}
+		}	
 
 		function erro() {
 			alert('Por favor, informe um número entre 1 e 4');
 			inicio();
+		}
+		
+		function erro2() {
+			alert('Por favor, informe um número entre 1 e 5');
+			escolha_evento();
+		}
+
+		function erro3() {
+			alert('Por favor, informe um número entre 1 e 3');
+			inicio_cadastro();
 		}
 
 		function sair() {
@@ -216,7 +399,6 @@
 				inicio();
 			}
 		}
-
 		
 		
 		inicio();

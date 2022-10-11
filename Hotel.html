@@ -5,9 +5,13 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
+	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<button id="botão">Clique-me</button>
+	<div class="sim">
+		<p>clique no botão para começar a usar o sistema!!</p>
+		<button id="botão">Clique-me</button>
+	</div>
 	<script>
 		var nome_hotel = prompt("digite o nome do hotel");
 		var nome_usuario = prompt("Qual o seu nome?")
@@ -393,31 +397,33 @@
 			var preço = [];
 			var resposta = "S"
 			while(resposta == "S"){
-				nomeempresa.push(prompt('Qual o nome da empresa?'));
+				var empresa = nomeempresa.push(prompt('Qual o nome da empresa?'));
 				console.log(nomeempresa)
 				var valor = parseInt(prompt("Qual o valor por aparelho?"));
 				
 				var quantidade = parseInt( prompt("Qual a quantidade de aparelhos?"));
-				
-				if (quantidade >= numin){
-					var desconto = resultado * percent
-					var valorfinal = resultado -= desconto;
-					preço.push(valorfinal)
-					console.log(nomeempresa)
-					console.log(preço)
-				}
-				else{
-				var resultado = valor * quantidade;
-				preço.push(resultado);
-				console.log(preço);
-				}
 
 				var percent = parseInt( prompt("Qual a porcentagem de desconto?"));
 				percent /= 100;
 				
 				var numin = parseInt(prompt("Qual o número mínimo de aparelhos para conseguir o desconto?"));
 
-				
+				if (quantidade >= numin){
+					var result= valor * quantidade;
+					var desconto = result * percent
+					var valorfinal = result -= desconto;
+					preço.push(valorfinal)
+					console.log(nomeempresa)
+					console.log(preço)
+					alert(`O serviço de ${empresa} custará R$ ${valorfinal}`)
+				}
+				else{
+				var resultado = valor * quantidade;
+				preço.push(resultado);
+				console.log(preço);
+				alert(`O serviço de ${empresa} custará R$ ${resultado}`)
+				}
+
 				resposta = prompt(`Deseja informar novos dados, ${nome_usuario}? (S/N)`)
 				if (resposta == "N"){
 					var valormin = Math.min(...preço);
@@ -425,14 +431,14 @@
 					console.log(posicaomenor);
 					console.log(valormin);
 					console.log(nomeempresa);
-					alert(`O orçamento de menor valor é o ${nomeempresa[posicaomenor]} por ${Math.min(...preço)}`)
-					ar();
+					alert(`O orçamento de menor valor é o ${nomeempresa[posicaomenor]} por R$ ${Math.min(...preço)}`)
+					inicio();
 				}
 
 			}
 		}
 
-		
+
 
 		function erro() {
 			alert('Por favor, informe um número entre 1 e 4');

@@ -9,12 +9,16 @@
 </head>
 <body>
 	<div class="sim">
+		<p id="hotel"></p>
+		<p id="usuario"></p>
 		<p>clique no botão para começar a usar o sistema!!</p>
 		<button id="botão">Clique-me</button>
 	</div>
 	<script>
 		var nome_hotel = prompt("digite o nome do hotel");
 		var nome_usuario = prompt("Qual o seu nome?")
+		document.getElementById("hotel").innerHTML = "hotel: " + nome_hotel; 
+		document.getElementById("usuario").innerHTML = "usuario: " + nome_usuario;
 		const button = document.getElementById("botão")
 		button.addEventListener("click", (Hotel) =>{
 			var senha = 2678;
@@ -33,9 +37,10 @@
 		var cafepessoa = 0.2;
 		var aguapessoa = 0.5;
 		var coxinhapessoa = 7;
+
 		function inicio() {
 
-			var escolha = parseInt(prompt('Selecione uma opção 1.) Reserva de Quartos 2.) Cadastro de Hóspedes 3.) Abastecimento de Carros 4.) Sair 5.) Pesquisar / cadastrar 6.) gerenciamento de evento 7.) Serviço de ar'));
+			var escolha = parseInt(prompt('Selecione uma opção \n 1.)  Reserva de Quartos \n 2.) Cadastro de Hóspedes \n 3.) Abastecimento de Carros \n 4.) Sair \n 5.) Pesquisar / cadastrar \n 6.) gerenciamento de evento \n 7.) Serviço de ar '));
 
 
 			switch (escolha) {
@@ -57,6 +62,7 @@
 
 				case 5:
 					inicio_cadastro();
+					break
 
 				case 6:
 					escolha_evento();
@@ -144,7 +150,7 @@
 
 
 		function inicio_cadastro(){
-			var escolha_cadastro = parseInt(prompt('Selecione uma opção 1.) cadastrar 2.) pesquisar 3.) Sair'));
+			var escolha_cadastro = parseInt(prompt('Selecione uma opção \n 1.) cadastrar \n 2.) pesquisar \n 3.) Sair'));
 
 			switch (escolha_cadastro) {
 				case 1:
@@ -194,7 +200,7 @@
 
 		function escolha_evento(){
 			alert("Gerenciamento de eventos")
-			var escolhas_event = parseInt(prompt("Selecione uma opção 1.) preço do evento 2.) Buffet 3.) Auditorio 4.) Vereficar horario 5.) inicio"));
+			var escolhas_event = parseInt(prompt("Selecione uma opção \n 1.) preço do evento \n 2.) Buffet \n 3.) Auditorio \n 4.) Vereficar horario \n 5.) inicio"));
 			switch (escolhas_event) {
 				case 1:
 					evento();
@@ -384,20 +390,17 @@
 					alert(`${nome_usuario}, é mais barato abastecer com gasolina no posto Stark Petrol`)
 				}
 			}
-			
+			inicio();
 		}
-		inicio();
-	})
 		
-		
-
 		function ar(){
 			alert(`HOTEL ${nome_hotel} - SERVIÇO DE AR`);
 			var nomeempresa = [];
 			var preço = [];
 			var resposta = "S"
 			while(resposta == "S"){
-				var empresa = nomeempresa.push(prompt('Qual o nome da empresa?'));
+				var empresa = prompt('Qual o nome da empresa?');
+				nomeempresa.push(empresa)
 				console.log(nomeempresa)
 				var valor = parseInt(prompt("Qual o valor por aparelho?"));
 				
@@ -434,14 +437,17 @@
 					alert(`O orçamento de menor valor é o ${nomeempresa[posicaomenor]} por R$ ${Math.min(...preço)}`)
 					inicio();
 				}
-
+				
 			}
+			;
 		}
+
+	
 
 
 
 		function erro() {
-			alert('Por favor, informe um número entre 1 e 4');
+			alert('Por favor, informe um número entre 1 e 7');
 			inicio();
 		}
 		
@@ -465,6 +471,11 @@
 			}
 		}
 		
+		inicio();
+	})
+		
+		
+
 		
 	</script>
 </body>

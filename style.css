@@ -16,6 +16,14 @@ p{
     font-size: 28px;
 }
 
+.sim #hotel{
+    color: yellow;
+}
+
+.sim #usuario{
+    color: yellow;
+}
+
 .sim{
     display: flex;
     flex-direction: column;
